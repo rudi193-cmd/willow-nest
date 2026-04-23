@@ -1,0 +1,47 @@
+{
+  "app_id": "willow-nest",
+  "name": "willow-nest",
+  "version": "1.0.0",
+  "safe_version": ">=2.0.0",
+  "b17": "B2DA2",
+  "agent_type": "tool",
+  "description": "Nest file intake pipeline — classify, sort, compost, scrub, promote, archive.",
+  "author": "Sean Campbell",
+  "data_streams": [
+    {
+      "id": "file_reads",
+      "purpose": "Read files from drop zones for classification and processing",
+      "retention": "session",
+      "description": "Files read from Desktop/Nest and Ashokoa/Nest/processed"
+    },
+    {
+      "id": "file_writes",
+      "purpose": "Move files to canonical destinations",
+      "retention": "permanent",
+      "description": "Files moved to Ashokoa/Filed and personal/"
+    },
+    {
+      "id": "cloud_llm_queries",
+      "purpose": "Summarization via fleet (Groq, Cerebras, Anthropic)",
+      "retention": "session",
+      "description": "Compost stage sends file excerpts to fleet LLM"
+    },
+    {
+      "id": "knowledge_store",
+      "purpose": "Write KB atoms for promoted files",
+      "retention": "permanent",
+      "description": "Promoted files get a LOAM knowledge atom"
+    }
+  ],
+  "permissions": [
+    "file_read",
+    "file_write",
+    "cloud_llm_free",
+    "knowledge_store_write"
+  ],
+  "privacy_tier": "client_only",
+  "local_processing": 0.85,
+  "entry_point": "nest:main",
+  "license": "MIT",
+  "repository": "https://github.com/rudi193-cmd/willow-nest"
+}
