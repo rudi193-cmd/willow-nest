@@ -119,21 +119,10 @@ def main() -> None:
 
     # --- Drain mode ---
     if args.drain:
-        print("\nDrain mode — checking files/store for sorted records...")
-        from store_bridge import _store, FILES_COLLECTION
-        # Iterate via search — get all records with nest_status=sorted
-        # Use direct store search (no MCP needed)
-        try:
-            records = _store.search(FILES_COLLECTION, "sorted")
-        except Exception as e:
-            print(f"  Store search failed: {e}")
-            return
-        sorted_records = [r for r in records if r.get("nest_status") == "sorted"]
-        print(f"  {len(sorted_records)} sorted record(s) to process")
-        for rec in sorted_records:
-            b17 = rec.get("b17", "?")
-            print(f"\n{b17} — {rec.get('filename', '?')} [{rec.get('track', '?')}]")
-            run_pipeline(b17)
+        print("\nDrain mode — requires Willow MCP connection")
+        print("  Use: WILLOW_AGENT_NAME=willow-nest python3 nest.py --drain")
+        print("  (Drain mode will iterate files/store records via MCP)")
+        print("\n  For now, run standard intake mode or --run-pipeline <b17>")
         return
 
     # --- Standard intake mode ---
